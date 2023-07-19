@@ -67,6 +67,9 @@ function getText(status) {
 function generateSlackMessage(text) {
     const { sha } = github.context;
     const { owner, repo } = github.context.repo;
+    const message = github.event.head_commit.message;
+    const user = github.event.pusher.name;
+    const html_url = github.event.repository.html_url;
     const status = core.getInput("status");
     const channel = core.getInput("slack_channel");
     const username = core.getInput("slack_username");
@@ -74,6 +77,22 @@ function generateSlackMessage(text) {
         channel,
         username,
         text: getText(status),
+        blocks: [
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: `*Repository pushed to:* ${repo}`
+                }
+            },
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: `*Pusher:* ${user}\n*Commit Message:* ${message}`
+                }
+            }
+        ],
         attachments: [
             {
                 fallback: text,
