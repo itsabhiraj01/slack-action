@@ -67,9 +67,9 @@ function getText(status) {
 function generateSlackMessage(text) {
     const { sha } = github.context;
     const { owner, repo } = github.context.repo;
-    const message = github.event.head_commit.message;
-    const user = github.event.pusher.name;
-    const html_url = github.event.repository.html_url;
+    const message = github.context.payload.head_commit.message;
+    const user = github.context.payload.head_commit.committer.username;
+    const commit_url = github.context.payload.head_commit.url;
     const status = core.getInput("status");
     const channel = core.getInput("slack_channel");
     const username = core.getInput("slack_username");
@@ -90,6 +90,13 @@ function generateSlackMessage(text) {
                 text: {
                     type: "mrkdwn",
                     text: `*Pusher:* ${user}\n*Commit Message:* ${message}`
+                }
+            },
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: `*Commit:* ${commit_url}\n*`
                 }
             }
         ],
@@ -131,6 +138,5 @@ function generateSlackMessage(text) {
 try {
     post(generateSlackMessage('Sending message'));
 } catch (error) {
-    const json = JSON.stringify(github);
-  core.setFailed(`[Error] There was an error when sending the slack notification - ${json}`);
+    core.setFailed(`[Error] There was an error when sending the slack notification - ${error}`);
 } 
