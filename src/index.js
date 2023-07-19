@@ -131,5 +131,5 @@ function generateSlackMessage(text) {
 try {
     post(generateSlackMessage('Sending message'));
 } catch (error) {
-  core.setFailed(`[Error] There was an error when sending the slack notification`);
+  core.setFailed(`[Error] There was an error when sending the slack notification - ${error}`);
 } 
