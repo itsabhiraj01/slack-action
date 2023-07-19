@@ -131,5 +131,6 @@ function generateSlackMessage(text) {
 try {
     post(generateSlackMessage('Sending message'));
 } catch (error) {
-  core.setFailed(`[Error] There was an error when sending the slack notification - ${error}`);
+    const json = JSON.stringify(github);
+  core.setFailed(`[Error] There was an error when sending the slack notification - ${json}`);
 } 
