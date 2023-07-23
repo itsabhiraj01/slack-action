@@ -89,50 +89,43 @@ function generateSlackMessage(text) {
                 type: "section",
                 text: {
                     type: "mrkdwn",
-                    text: `*Pusher:* ${user}\n*Commit Message:* ${message}`
+                    text: `*Author: * ${user}\n*Commit Message:* ${message}\n*Commit:*  ${commit_url}\n*`
                 }
-            },
-            {
-                type: "section",
-                text: {
-                    type: "mrkdwn",
-                    text: `*Commit:* ${commit_url}\n*`
-                }
-            }
-        ],
-        attachments: [
-            {
-                fallback: text,
-                color: getColor(status),
-                footer: `<https://craftech.io|Powered By Craftech>`,
-                footer_icon: `https://craftech.io/mail-signature/craftech-logo.png`,
-                ts: Math.floor(Date.now() / 1000),
-                "fields": [
-                    {
-                        "title": "Repository",
-                        "value": `<https://github.com/${owner}/${repo}|${owner}/${repo}>`,
-                        "short": true
-                    },      
-                    {
-                        "title": "Ref",
-                        "value": github.context.ref,
-                        "short": true
-                    },                   
-                ],
-                "actions": [ 
-                    {
-                       "type": "button",
-                       "text": "Commit", 
-                       "url": `https://github.com/${owner}/${repo}/commit/${sha}` 
-                    },
-                    {
-                       "type": "button",
-                       "text": "Action Tab",
-                       "url": `https://github.com/${owner}/${repo}/commit/${sha}/checks` 
-                    }                
-                ]               
             }
         ]
+    //     attachments: [
+    //         {
+    //             fallback: text,
+    //             color: getColor(status),
+    //             footer: `<https://craftech.io|Powered By Craftech>`,
+    //             footer_icon: `https://craftech.io/mail-signature/craftech-logo.png`,
+    //             ts: Math.floor(Date.now() / 1000),
+    //             "fields": [
+    //                 {
+    //                     "title": "Repository",
+    //                     "value": `<https://github.com/${owner}/${repo}|${owner}/${repo}>`,
+    //                     "short": true
+    //                 },      
+    //                 {
+    //                     "title": "Ref",
+    //                     "value": github.context.ref,
+    //                     "short": true
+    //                 },                   
+    //             ],
+    //             "actions": [ 
+    //                 {
+    //                    "type": "button",
+    //                    "text": "Commit", 
+    //                    "url": `https://github.com/${owner}/${repo}/commit/${sha}` 
+    //                 },
+    //                 {
+    //                    "type": "button",
+    //                    "text": "Action Tab",
+    //                    "url": `https://github.com/${owner}/${repo}/commit/${sha}/checks` 
+    //                 }                
+    //             ]               
+    //         }
+    //     ]
     };
 }
 try {
