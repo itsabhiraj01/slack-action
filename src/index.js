@@ -82,14 +82,14 @@ function generateSlackMessage(text) {
                 type: "section",
                 text: {
                     type: "mrkdwn",
-                    text: `*Repository pushed to:* ${repo}`
+                    text: `*New commit pushed to :* ${repo}`
                 }
             },
             {
                 type: "section",
                 text: {
                     type: "mrkdwn",
-                    text: `*Author: * ${user}\n*Commit Message:* ${message}\n*Commit:*  ${commit_url}\n*`
+                    text: `*Author:* ${user}\n*Message:* ${message}\n*Commit:* ${commit_url}`
                 }
             }
         ]
